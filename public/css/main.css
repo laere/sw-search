@@ -361,6 +361,12 @@ html {
 *, *:after, *:before {
   box-sizing: border-box; }
 
+body {
+  background-image: url("http://i0.wp.com/www.gamengadgets.com/wp-content/uploads/2014/12/star-wars-wallpaper-33.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; }
+
 @keyframes expand {
   50% {
     width: 100px; }
@@ -384,12 +390,12 @@ html {
         transform: scaleX(-1);
         position: absolute;
         bottom: 30px;
-        left: 10px; }
+        left: 40px; }
       #container .ui .search-bar .search {
         background-color: #cc4d4d;
         border: none;
         margin: 24px 0;
-        margin-left: 32px;
+        margin-left: 64px;
         width: 50px;
         border-bottom: 1px solid white;
         height: 30px;
