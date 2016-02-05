@@ -6,10 +6,8 @@ var Search = React.createClass({
         return (
 
             <div>
-              <form>
-                <input type="text"/>
-                <input type="submit" placeholder="Search..."/>
-              </form>
+                <img className="search-icon" src="https://cdn3.iconfinder.com/data/icons/ecommerce-5/100/search-01-128.png" width="18px" height="18px" />
+                <input type="text" className="search" />
             </div>
         );
     }

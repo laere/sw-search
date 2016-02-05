@@ -4,9 +4,12 @@
 @import '_normalize';
 
 
+
+
 /////VARS/MIXINS//////////////////////////////////////////////////////
 
-
+$ui-color: rgba(17,23,28, .8);
+$header-color: rgb(204,77,77);
 
 /////BASE STYLES//////////////////////////////////////////////////////
 
@@ -20,20 +23,24 @@ html {
   box-sizing: border-box;
 }
 
-body {
-  background-image: url('http://i0.wp.com/www.gamengadgets.com/wp-content/uploads/2014/12/star-wars-wallpaper-33.gif');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+// body {
+//   background-image: url('http://i0.wp.com/www.gamengadgets.com/wp-content/uploads/2014/12/star-wars-wallpaper-33.gif');
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   background-position: center;
+//
+// }
 
+@keyframes expand {
+    50% {
+      width: 100px
+    }
+    100% {
+      width: 150px;
+    }
 }
 
-input[type=text] {
-  border: none;
-  background-color: #CC4D4D;
-  border-bottom: 3px solid white;
 
-}
 
 /////ELEMENT STYLES//////////////////////////////////////////////////////
 
@@ -44,15 +51,39 @@ input[type=text] {
   margin: 32px auto;
 
     .ui {
-      background-color: #11171C;
+      background-color: $ui-color;
       height: 900px;
       width: 1250px;
       margin: 0 auto;
 
         .search-bar {
-          background-color: #CC4D4D;
+          background-color: $header-color;
           width: 100%;
           height: 80px;
+          position: relative;
+          .search-icon {
+            transform: scaleX(-1);
+            position: absolute;
+            bottom: 30px;
+            left: 10px;
+          }
+          .search {
+            background-color: $header-color;
+            border: none;
+            margin: 24px 0;
+            margin-left: 32px;
+            width: 50px;
+            border-bottom: 1px solid white;
+            height: 30px;
+            font-size: 1.85rem;
+            color: white;
+            &:focus {
+              animation: expand .25s ease-out;
+              animation-fill-mode: forwards;
+              outline: none;
+            }
+          }
+
         }
 
         .banner {
@@ -60,6 +91,7 @@ input[type=text] {
           background-repeat: no-repeat;
           background-size: cover;
           background-position: center;
+          // opacity: .8;
           height: 400px;
           width: 100%;
         }

@@ -19039,12 +19039,8 @@ var Search = React.createClass({
         return React.createElement(
             "div",
             null,
-            React.createElement(
-                "form",
-                null,
-                React.createElement("input", { type: "text" }),
-                React.createElement("input", { type: "submit", placeholder: "Search..." })
-            )
+            React.createElement("img", { className: "search-icon", src: "https://cdn3.iconfinder.com/data/icons/ecommerce-5/100/search-01-128.png", width: "18px", height: "18px" }),
+            React.createElement("input", { type: "text", className: "search" })
         );
     }
 });
