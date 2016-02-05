@@ -19023,6 +19023,10 @@ var Img = React.createClass({
   displayName: "Img",
 
   render: function () {
+    //Make the background image dynamic to searched item
+    // var backgroundImg = {
+    //   backgroundImg:
+    // }
     return React.createElement("div", { className: "banner" });
   }
 });
@@ -19032,6 +19036,32 @@ module.exports = Img;
 },{"react":158}],160:[function(require,module,exports){
 var React = require('react');
 
+var Info = React.createClass({
+  displayName: "Info",
+
+  render: function () {
+    return React.createElement(
+      "div",
+      { className: "info" },
+      React.createElement(
+        "h2",
+        { className: "info-header" },
+        "Info"
+      ),
+      React.createElement(
+        "p",
+        { className: "info-info" },
+        "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
+      )
+    );
+  }
+});
+
+module.exports = Info;
+
+},{"react":158}],161:[function(require,module,exports){
+var React = require('react');
+
 var Search = React.createClass({
     displayName: "Search",
 
@@ -19039,7 +19069,7 @@ var Search = React.createClass({
         return React.createElement(
             "div",
             null,
-            React.createElement("img", { className: "search-icon", src: "https://cdn3.iconfinder.com/data/icons/ecommerce-5/100/search-01-128.png", width: "18px", height: "18px" }),
+            React.createElement("img", { className: "search-icon", src: "https://cdn3.iconfinder.com/data/icons/ecommerce-5/100/search-01-128.png", width: "16px", height: "16px" }),
             React.createElement("input", { type: "text", className: "search" })
         );
     }
@@ -19047,10 +19077,11 @@ var Search = React.createClass({
 
 module.exports = Search;
 
-},{"react":158}],161:[function(require,module,exports){
+},{"react":158}],162:[function(require,module,exports){
 var React = require('react');
 var Search = require('./Search.jsx');
 var Img = require('./Img.jsx');
+var Info = require('./Info.jsx');
 // var HTTP = require('..services/api');
 
 var UI = React.createClass({
@@ -19086,18 +19117,19 @@ var UI = React.createClass({
         { className: 'search-bar' },
         React.createElement(Search, null)
       ),
-      React.createElement(Img, null)
+      React.createElement(Img, null),
+      React.createElement(Info, null)
     );
   }
 });
 
 module.exports = UI;
 
-},{"./Img.jsx":159,"./Search.jsx":160,"react":158}],162:[function(require,module,exports){
+},{"./Img.jsx":159,"./Info.jsx":160,"./Search.jsx":161,"react":158}],163:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var UI = require('./components/UI.jsx');
 
 ReactDOM.render(React.createElement(UI, null), document.getElementById('container'));
 
-},{"./components/UI.jsx":161,"react":158,"react-dom":2}]},{},[162]);
+},{"./components/UI.jsx":162,"react":158,"react-dom":2}]},{},[163]);

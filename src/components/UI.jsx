@@ -1,6 +1,7 @@
 var React = require('react');
 var Search = require('./Search.jsx')
 var Img = require('./Img.jsx');
+var Info = require('./Info.jsx');
 // var HTTP = require('..services/api');
 
 var UI = React.createClass({
@@ -35,6 +36,7 @@ var UI = React.createClass({
             <Search />
           </header>
           <Img />
+          <Info />
         </div>
     );
   }
