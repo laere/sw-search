@@ -19046,12 +19046,12 @@ var Info = React.createClass({
       React.createElement(
         "h2",
         { className: "info-header" },
-        "Info"
+        "Header"
       ),
       React.createElement(
         "p",
         { className: "info-info" },
-        "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
+        "asdasdsasdaasd"
       )
     );
   }
@@ -19070,7 +19070,8 @@ var Search = React.createClass({
             "div",
             null,
             React.createElement("img", { className: "search-icon", src: "https://cdn3.iconfinder.com/data/icons/ecommerce-5/100/search-01-128.png", width: "16px", height: "16px" }),
-            React.createElement("input", { type: "text", className: "search" })
+            React.createElement("input", { type: "text", className: "search", value: this.props.name }),
+            React.createElement("input", { type: "submit", ref: "searchInput", value: "search", onClick: this.filterByName })
         );
     }
 });
@@ -19082,7 +19083,6 @@ var React = require('react');
 var Search = require('./Search.jsx');
 var Img = require('./Img.jsx');
 var Info = require('./Info.jsx');
-// var HTTP = require('..services/api');
 
 var UI = React.createClass({
   displayName: 'UI',
@@ -19093,20 +19093,32 @@ var UI = React.createClass({
     };
   },
 
-  //THIS WILL RETURN API JSON DATAE BEFORE FIRST RENDER
-  // componentWillMount: function() {
-  //   //GRAB THE URL
-  //     HTTP.get('/people')
-  //     //THEN GRAB THE URL DATA
-  //       .then(function(data)) {
-  //         //LOG DATA
-  //         console.log('Data: ', data);
-  //         //SET STATE FROM INITIAL TO DATA RECEIVED
-  //           this.setState({
-  //             people: data
-  //           });
-  //       });
-  // },
+  // THIS WILL RETURN API JSON DATA BEFORE FIRST RENDER
+  componentDidMount: function () {
+
+    fetch('http://swapi.co/api/people').then(function (response) {
+      return response.json;
+    }).then((function (json) {
+      this.setState({ people: json });
+      console.log(json);
+    }).bind(this)).catch(function (err) {
+      console.log(err);
+    });
+  },
+
+  logPeople: function () {
+    console.log(this.state.people);
+  },
+
+  filterByName: function (name) {
+    var filtered = this.state.people.filter(function (name) {
+      return obj.name.indexOf(name) > -1;
+    });
+    console.log(this.state.people);
+    return { filtered };
+    console.log(filtered);
+  },
+
   render: function () {
 
     return React.createElement(
@@ -19115,8 +19127,9 @@ var UI = React.createClass({
       React.createElement(
         'header',
         { className: 'search-bar' },
-        React.createElement(Search, null)
+        React.createElement(Search, { onNewSearch: this.filterByName, characters: this.state.people })
       ),
+      React.createElement('input', { type: 'submit', value: 'search', onClick: this.logPeople }),
       React.createElement(Img, null),
       React.createElement(Info, null)
     );

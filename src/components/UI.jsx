@@ -2,7 +2,6 @@ var React = require('react');
 var Search = require('./Search.jsx')
 var Img = require('./Img.jsx');
 var Info = require('./Info.jsx');
-// var HTTP = require('..services/api');
 
 var UI = React.createClass({
 
@@ -12,20 +11,35 @@ var UI = React.createClass({
       }
   },
 
-  //THIS WILL RETURN API JSON DATAE BEFORE FIRST RENDER
-  // componentWillMount: function() {
-  //   //GRAB THE URL
-  //     HTTP.get('/people')
-  //     //THEN GRAB THE URL DATA
-  //       .then(function(data)) {
-  //         //LOG DATA
-  //         console.log('Data: ', data);
-  //         //SET STATE FROM INITIAL TO DATA RECEIVED
-  //           this.setState({
-  //             people: data
-  //           });
-  //       });
-  // },
+  // THIS WILL RETURN API JSON DATA BEFORE FIRST RENDER
+  componentDidMount: function() {
+
+    fetch('http://swapi.co/api/people')
+      .then(function(response) {
+        return response.json
+      })
+      .then(function(json) {
+        this.setState({ people: json });
+        console.log(json);
+      }.bind(this))
+      .catch(function(err) {
+        console.log(err);
+      })
+  },
+
+  logPeople: function() {
+    console.log(this.state.people);
+  },
+
+  filterByName: function(name) {
+    var filtered = this.state.people.filter(function(name) {
+      return obj.name.indexOf(name) > -1;
+    });
+    console.log(this.state.people)
+    return ({filtered});
+    console.log(filtered);
+
+  },
 
   render: function() {
 
@@ -33,8 +47,9 @@ var UI = React.createClass({
         <div className="ui">
           <header className="search-bar">
             {/*SEARCH BAR TO LOOK UP API INFO*/}
-            <Search />
+            <Search onNewSearch={this.filterByName} characters={this.state.people} />
           </header>
+          <input type="submit" value="search" onClick={this.logPeople} />
           <Img />
           <Info />
         </div>
