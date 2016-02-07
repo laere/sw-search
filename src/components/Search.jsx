@@ -9,27 +9,50 @@ var Search = React.createClass({
     },
 
     handleOnChange: function(e) {
-        this.setState({
-          value: e.target.value
-        })
-    },
-
-    filterByName: function() {
-      var desiredName = this.state.value;
-      var matchingResult = this.props.characters.results.find(function(result) {
-        return result.name === desiredName;
+      this.setState({
+        value: e.target.value
       });
     },
 
+    submit: function(e) {
+      // TODO
+      console.log('TODO');
+    },
+
     render: function() {
+      if (this.props.characters.length <= 0) {
+        return this.renderLoading();
+      } else {
+        return this.renderSearch();
+      }
+    },
+
+    renderLoading: function() {
+      return (
+        <div>
+          ...loading data...
+        </div>
+      )
+    },
+
+    renderSearch: function() {
+        var desiredName = this.state.value;
+        var matchingResults = this.props.characters.results.filter(function(result) {
+            return result.name.toLowerCase().indexOf(desiredName) !== -1;
+        });
 
         return (
-
             <div>
-              <h1>{matchingResult}</h1>
                 <img className="search-icon" src="https://cdn3.iconfinder.com/data/icons/ecommerce-5/100/search-01-128.png" width="16px" height="16px" />
                 <input type="text" className="search" value={this.state.value} onChange={this.handleOnChange}/>
-                <input type="submit" ref="searchInput" onClick={this.filterByName} />
+                <input type="submit" ref="searchInput" onClick={this.submit} />
+                {matchingResults.map(function(matchingResult, i) {
+                    return (
+                        <div key={i}>
+                            {matchingResult.name}
+                        </div>
+                    )
+                })}
             </div>
         );
     }
