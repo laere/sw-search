@@ -78591,15 +78591,28 @@ module.exports = Info;
 var React = require('react');
 
 var Search = React.createClass({
-    displayName: "Search",
+    displayName: 'Search',
+
+    getInitialState: function () {
+        return {
+            value: ''
+        };
+    },
+
+    handleOnChange: function (e) {
+        this.setState({
+            value: e.target.value
+        });
+    },
 
     render: function () {
+
         return React.createElement(
-            "div",
+            'div',
             null,
-            React.createElement("img", { className: "search-icon", src: "https://cdn3.iconfinder.com/data/icons/ecommerce-5/100/search-01-128.png", width: "16px", height: "16px" }),
-            React.createElement("input", { type: "text", className: "search", value: this.props.name }),
-            React.createElement("input", { type: "submit", ref: "searchInput", value: "search", onClick: this.filterByName })
+            React.createElement('img', { className: 'search-icon', src: 'https://cdn3.iconfinder.com/data/icons/ecommerce-5/100/search-01-128.png', width: '16px', height: '16px' }),
+            React.createElement('input', { type: 'text', className: 'search', value: this.state.value, onChange: this.handleOnChange }),
+            React.createElement('input', { type: 'submit', ref: 'searchInput', onClick: this.filterByName })
         );
     }
 });
@@ -78636,11 +78649,9 @@ var UI = React.createClass({
   },
 
   filterByName: function (name) {
-
-    var filtered = this.state.people.filter(function (obj) {
-      return obj.results[0].name.indexOf(name) > -1;
+    var filtered = this.state.people.results.filter(function (obj) {
+      return obj.name.indexOf(name) > -1;
     });
-    console.log(filtered);
   },
 
   render: function () {
@@ -78651,7 +78662,7 @@ var UI = React.createClass({
       React.createElement(
         'header',
         { className: 'search-bar' },
-        React.createElement(Search, null)
+        React.createElement(Search, { characters: this.state.people })
       ),
       React.createElement('input', { type: 'submit', value: 'search', onClick: this.filterByName }),
       React.createElement(Img, null),

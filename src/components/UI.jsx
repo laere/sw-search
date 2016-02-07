@@ -28,23 +28,20 @@ var UI = React.createClass({
       })
   },
 
-
-
   filterByName: function(name) {
-    
-    var filtered = this.state.people.filter(function(obj) {
-      return obj.results[0].name.indexOf(name) > -1;
+    var filtered = this.state.people.results.filter(function(obj) {
+      return obj.name.indexOf(name) > -1;
     });
-    console.log(filtered);
   },
-
+  
   render: function() {
 
       return (
         <div className="ui">
           <header className="search-bar">
+            {/*<h1>{filtered}</h1>*/}
             {/*SEARCH BAR TO LOOK UP API INFO*/}
-            <Search />
+            <Search  characters={this.state.people} />
           </header>
           <input type="submit" value="search" onClick={this.filterByName} />
           <Img />
