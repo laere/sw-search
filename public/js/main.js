@@ -78574,13 +78574,9 @@ var Info = React.createClass({
       React.createElement(
         "h2",
         { className: "info-header" },
-        "Header"
+        this.props.name
       ),
-      React.createElement(
-        "p",
-        { className: "info-info" },
-        "asdasdsasdaasd"
-      )
+      React.createElement("p", { className: "info-info" })
     );
   }
 });
@@ -78605,11 +78601,23 @@ var Search = React.createClass({
         });
     },
 
+    filterByName: function () {
+        var desiredName = this.state.value;
+        var matchingResult = this.props.characters.results.find(function (result) {
+            return result.name === desiredName;
+        });
+    },
+
     render: function () {
 
         return React.createElement(
             'div',
             null,
+            React.createElement(
+                'h1',
+                null,
+                matchingResult
+            ),
             React.createElement('img', { className: 'search-icon', src: 'https://cdn3.iconfinder.com/data/icons/ecommerce-5/100/search-01-128.png', width: '16px', height: '16px' }),
             React.createElement('input', { type: 'text', className: 'search', value: this.state.value, onChange: this.handleOnChange }),
             React.createElement('input', { type: 'submit', ref: 'searchInput', onClick: this.filterByName })
@@ -78635,22 +78643,17 @@ var UI = React.createClass({
     };
   },
 
-  // THIS WILL RETURN API JSON DATA BEFORE FIRST RENDER
   componentDidMount: function () {
-
+    //GRAB API DATA
     fetch('http://swapi.co/api/people').then(function (response) {
       return response.json();
     }).then((function (json) {
+      //SET STATE TO RECEIVED JSON DATA
       this.setState({ people: json });
       console.log(json);
+      //BIND THIS ELSE IT WILL REFER TO THE FUNCTION
     }).bind(this)).catch(function (err) {
       console.log(err);
-    });
-  },
-
-  filterByName: function (name) {
-    var filtered = this.state.people.results.filter(function (obj) {
-      return obj.name.indexOf(name) > -1;
     });
   },
 
@@ -78665,8 +78668,7 @@ var UI = React.createClass({
         React.createElement(Search, { characters: this.state.people })
       ),
       React.createElement('input', { type: 'submit', value: 'search', onClick: this.filterByName }),
-      React.createElement(Img, null),
-      React.createElement(Info, null)
+      React.createElement(Img, null)
     );
   }
 });

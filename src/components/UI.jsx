@@ -12,26 +12,21 @@ var UI = React.createClass({
       }
   },
 
-  // THIS WILL RETURN API JSON DATA BEFORE FIRST RENDER
   componentDidMount: function() {
-
+    //GRAB API DATA
     fetch('http://swapi.co/api/people')
       .then(function(response) {
         return response.json()
       })
       .then(function(json) {
+        //SET STATE TO RECEIVED JSON DATA
         this.setState({ people: json });
         console.log(json);
+        //BIND THIS ELSE IT WILL REFER TO THE FUNCTION
       }.bind(this))
       .catch(function(err) {
         console.log(err);
       })
-  },
-
-  filterByName: function(name) {
-    var filtered = this.state.people.results.filter(function(obj) {
-      return obj.name.indexOf(name) > -1;
-    });
   },
   
   render: function() {
@@ -45,7 +40,6 @@ var UI = React.createClass({
           </header>
           <input type="submit" value="search" onClick={this.filterByName} />
           <Img />
-          <Info />
         </div>
     );
   }
